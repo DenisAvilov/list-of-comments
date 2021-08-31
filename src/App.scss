@@ -1,0 +1,126 @@
+@import './vars.scss';
+@import './mixin';
+
+.comment{
+    max-width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+    height: 100vh;
+
+    form{
+        width: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }  
+    .form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-bottom: 20px;
+    width: 100%;
+    
+    }
+
+    .form__field {
+        @include form__field
+    }
+
+    .form__field__text{
+        @include form__field;
+        border: 2px solid $white;
+        resize: none;
+        -moz-appearance: none;      
+        overflow: auto;
+    }
+
+    .form__label {
+        @include form__label
+    }
+
+    .form__label__text{
+        @include form__label;
+        top: 40px;
+    }
+
+    .form__field:focus{
+    ~ .form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: $primary;
+        font-weight:700;    
+    }
+        @include focus
+    }
+
+    .form__field__text:focus{
+        ~ .form__label__text {
+            position: absolute;
+            top: -10px;
+            display: block;
+            transition: 0.2s;
+            font-size: 1rem;
+            color: $primary;
+            font-weight:700;    
+        }
+            @include focus
+        } 
+    .form__field{
+    &:required,&:invalid { box-shadow:none; }
+    }
+
+    &__items{
+        border: 2px solid $white;
+        
+        overflow-y: auto;
+        max-height: 60%; 
+        color: $color; 
+        margin-bottom: 30px;
+    }
+    &__item{
+        border-top: 1px solid $color;
+        background: $white;
+        padding: 15px 10px;
+        &:first-child{
+            border-top: 0 solid $white;
+            padding-top: 5px;
+        }        
+        &__name{
+            font-size: 1.2rem;           
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+    }
+
+
+
+    .btn{
+        @include btn;
+        margin-bottom: 30px;
+        margin-left: auto;
+    }
+
+    .nav{
+        display: flex;
+        justify-content: space-between;
+        align-self: center;
+        align-items: center;
+        margin-top: auto;
+        &__more{
+            @include btn;
+        }
+        &__prev, &__next{
+            @include btn;            
+            height: 40px;
+            max-width: 40px;
+        }
+    }
+
+
+}
