@@ -32,8 +32,7 @@ function App() {
                 Если больше нет комментариев, кнопка “Показать еще” должна быть скрыта
                 Помимо кнопки “Показать еще” реализовать навигацию по комментариям с помощью пагинации
             </div>   
-          </div>
-          
+          </div>          
           <div className="comment__item">
             <div className="comment__item__name">TOLA</div>   
             <div className="comment__item__text">
@@ -47,7 +46,6 @@ function App() {
                 Помимо кнопки “Показать еще” реализовать навигацию по комментариям с помощью пагинации
             </div>   
           </div>
-
           <div className="comment__item">
             <div className="comment__item__name">Илья</div>   
             <div className="comment__item__text">
@@ -61,7 +59,6 @@ function App() {
                 Помимо кнопки “Показать еще” реализовать навигацию по комментариям с помощью пагинации
             </div>   
           </div>
-
           <div className="comment__item">
             <div className="comment__item__name">Илья</div>   
             <div className="comment__item__text">
@@ -75,8 +72,7 @@ function App() {
                 Помимо кнопки “Показать еще” реализовать навигацию по комментариям с помощью пагинации
             </div>   
           </div>
-      </div> 
-     
+      </div>      
       <div className="nav">
         <button className="nav__prev">{'<'}</button>
         <button className="nav__more">Показать еще</button>
