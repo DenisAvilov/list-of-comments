@@ -1,86 +1,58 @@
 
-import './App.scss';
+import {useState, useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Comments}  from './components/Comments'
+import {InputField} from './components/InputField'
+import {addMessage, getComments} from './store/commentSlice'
+import {useHTTP} from "./hooks/useHTTP"
+import {Pagination} from './components/Pagination'
+import './App.scss'
 
-function App() {
+export const App = () => {
+  const dispatch = useDispatch()
+  const current_pages = useSelector(state => state.comments.current_page) 
+  const { request } = useHTTP() 
+
+  const[name, setName] = useState('')
+  const[text, setText] = useState('')
+
+  const addNewComment = async () => {
+    if(name.trim().length && text.trim().length){    
+    const res = await request(`https://jordan.ashton.fashion/api/goods/30/comments`,'POST',{text,name})
+    if(res){
+      dispatch(addMessage({text, name}))
+    }
+    setName('')
+    setText('')
+    alert('Комментарий добавлен!')
+  }else{
+    alert('Все поля для ввода должны быть заполнены! Повторите попытку.')
+  }
+  
+  }
+
+  useEffect( () => {
+    
+    async function fetchData() {
+      let response = await request(`https://jordan.ashton.fashion/api/goods/30/comments?page=${current_pages}`)      
+      const {data, total, current_page, last_page, last_page_url, prev_page_url, next_page_url, first_page_url} = response
+      
+      dispatch(getComments({data, total, current_page, last_page, last_page_url, prev_page_url, next_page_url, first_page_url}))
+    }
+
+  fetchData()
+    
+  }, [request, dispatch, current_pages]) 
+
+  
   return (
-    <div className="comment">     
-      <form>
-        <div className='form__group field'>
-          <input name="name" type="input" id="name" className="form__field">
-          </input>  
-          <label htmlFor="name" className="form__label">Имя</label>
-        </div>
-
-        <div className='form__group field'>
-          <textarea name="text" id="text" className="form__field__text" ></textarea>  
-          <label className="form__label__text" >Оставте коментарий</label>          
-        </div>
-
-        <button type="submit" className="btn" >Отправить</button>
-      </form>  
-
-      <div className="comment__items" id="comment__view">
-          <div className="comment__item">
-            <div className="comment__item__name">Илья</div>   
-            <div className="comment__item__text">
-                name имя
-                text комментарий
-                Все поля обязательные для заполнения
-                Вывести список комментариев
-                            
-                При клике на кнопку “Показать еще” - подгружать следующие комментарии
-                Если больше нет комментариев, кнопка “Показать еще” должна быть скрыта
-                Помимо кнопки “Показать еще” реализовать навигацию по комментариям с помощью пагинации
-            </div>   
-          </div>          
-          <div className="comment__item">
-            <div className="comment__item__name">TOLA</div>   
-            <div className="comment__item__text">
-                name имя
-                text комментарий
-                Все поля обязательные для заполнения
-                Вывести список комментариев
-                            
-                При клике на кнопку “Показать еще” - подгружать следующие комментарии
-                Если больше нет комментариев, кнопка “Показать еще” должна быть скрыта
-                Помимо кнопки “Показать еще” реализовать навигацию по комментариям с помощью пагинации
-            </div>   
-          </div>
-          <div className="comment__item">
-            <div className="comment__item__name">Илья</div>   
-            <div className="comment__item__text">
-                name имя
-                text комментарий
-                Все поля обязательные для заполнения
-                Вывести список комментариев
-                            
-                При клике на кнопку “Показать еще” - подгружать следующие комментарии
-                Если больше нет комментариев, кнопка “Показать еще” должна быть скрыта
-                Помимо кнопки “Показать еще” реализовать навигацию по комментариям с помощью пагинации
-            </div>   
-          </div>
-          <div className="comment__item">
-            <div className="comment__item__name">Илья</div>   
-            <div className="comment__item__text">
-                name имя
-                text комментарий
-                Все поля обязательные для заполнения
-                Вывести список комментариев
-                            
-                При клике на кнопку “Показать еще” - подгружать следующие комментарии
-                Если больше нет комментариев, кнопка “Показать еще” должна быть скрыта
-                Помимо кнопки “Показать еще” реализовать навигацию по комментариям с помощью пагинации
-            </div>   
-          </div>
-      </div>      
-      <div className="nav">
-        <button className="nav__prev">{'<'}</button>
-        <button className="nav__more">Показать еще</button>
-        <button className="nav__next">{'>'}</button> 
-      </div>
-
+    <div className="comment">              
+          <InputField name={name} text={text} addNewMessage={addNewComment} 
+            handelName={setName} handelText={setText}/>        
+          <Comments/>
+          <Pagination/>
+          
     </div>
-  );
+  )
 }
 
-export default App;
