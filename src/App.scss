@@ -76,17 +76,20 @@
     }
 
     &__items{
-        border: 2px solid $white;
-        
+        border: 2px solid $white;        
         overflow-y: auto;
-        max-height: 60%; 
+        width: 100%;
+        max-height: 50%; 
+        min-height: 50%;
         color: $color; 
         margin-bottom: 30px;
+        background-color: $white;
     }
     &__item{
         border-top: 1px solid $color;
         background: $white;
         padding: 15px 10px;
+        min-height: 60px;
         &:first-child{
             border-top: 0 solid $white;
             padding-top: 5px;
@@ -120,7 +123,25 @@
             height: 40px;
             max-width: 40px;
         }
+        
     }
 
-
+    .pagination{
+        max-width: 700px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        span{
+            padding: 3px;
+            cursor: pointer;
+            &:hover{
+                color: $green;
+            } 
+        }
+        .selectedPage{
+            font-weight: bold;
+            color: $green;
+        }
+    }
 }

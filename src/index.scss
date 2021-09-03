@@ -11,5 +11,16 @@ body{
   background-color: $background;  
   height: 100%;
   color: $white;
+  position: relative;
 }
 
+.message{
+  position: absolute;
+  content: "";
+  top:0;
+  left:0;
+  bottom: 0;
+  right: 0;
+  background-color: black;
+  color: white;
+}
